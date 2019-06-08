@@ -1,4 +1,4 @@
-/* eslint-env browser, es6 */
+/* eslint-env browser, es6 
 
 function base64UrlToUint8Array(base64UrlData) {
   const padding = '='.repeat((4 - base64UrlData.length % 4) % 4);
@@ -65,6 +65,7 @@ function generateNewKeys() {
   return crypto.subtle.generateKey({name: 'ECDH', namedCurve: 'P-256'},
     true, ['deriveBits'])
   .then((keys) => {
+    console.log(keys);
     return cryptoKeyToUrlBase64(keys.publicKey, keys.privateKey);
   });
 }
@@ -87,17 +88,19 @@ function getStoredKeys() {
 }
 
 function displayKeys(keys) {
-  const publicElement = document.querySelector('.js-public-key');
-  const privateElement = document.querySelector('.js-private-key');
+  const publicElement = 'BCGdB1k1Bnt3YIV_mYuAfpWlDFjcwg6va0fj_1VcP8SKLR4B_WYi6jGEC1xzYhiUCbUDEnWyj65Z4HEIV34mfiw';
+  const privateElement = 'CV8vfQItcA722oiFpBOuuTwyTGpvjTmS4Sel8dq416I';
   const refreshBtn = document.querySelector('.js-refresh-keys');
 
-  publicElement.textContent = keys.public;
-  privateElement.textContent = keys.private;
+  //publicElement.textContent = keys.public;
+  //privateElement.textContent = keys.private;
+  console.log(keys.public);
+  console.log(keys.private);
 
-  refreshBtn.disabled = false;
+  refreshBtn.visible = false;
 }
 
-function updateKeys() {
+/*function updateKeys() {
   let storedKeys = getStoredKeys();
   let promiseChain = Promise.resolve(storedKeys);
   if (!storedKeys) {
@@ -111,9 +114,9 @@ function updateKeys() {
   return promiseChain.then((keys) => {
     displayKeys(keys);
   });
-}
+}*/
 
-function initialiseKeys() {
+/*function initialiseKeys() {
   const refreshBtn = document.querySelector('.js-refresh-keys');
   refreshBtn.addEventListener('click', function() {
     refreshBtn.disabled = true;
@@ -128,4 +131,4 @@ function initialiseKeys() {
 
 window.addEventListener('load', () => {
   initialiseKeys();
-});
+});*/
