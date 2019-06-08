@@ -52,7 +52,7 @@ app.post('/api/send-push-msg', (req, res) => {
   });
 });
 
-app.use('/', express.static('static'));
+app.use('/', express.static('public'));
 
 // Start the server
 const server = app.listen(process.env.PORT || '8080', () => {
