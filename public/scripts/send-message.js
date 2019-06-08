@@ -1,4 +1,4 @@
-/* eslint-env browser,  es6 */
+/* eslint-env browser,  es6*/
 
 function getDetails() {
   const details = window.localStorage.getItem('last-known-details');
@@ -51,9 +51,6 @@ function sendPushMessage() {
     );
   }
 
-  const publicElement = document.querySelector('.js-public-key');
-  const privateElement = document.querySelector('.js-private-key');
-
   return fetch('/api/send-push-msg', {
     method: 'POST',
     headers: {
@@ -63,8 +60,8 @@ function sendPushMessage() {
       subscription: subscriptionObject,
       data: dataString,
       applicationKeys: {
-        public: publicElement.textContent,
-        private: privateElement.textContent,
+        public: 'BCGdB1k1Bnt3YIV_mYuAfpWlDFjcwg6va0fj_1VcP8SKLR4B_WYi6jGEC1xzYhiUCbUDEnWyj65Z4HEIV34mfiw',
+        private: 'CV8vfQItcA722oiFpBOuuTwyTGpvjTmS4Sel8dq416I'
       }
     })
   })
@@ -76,12 +73,13 @@ function sendPushMessage() {
       });
     }
   });
+  
 }
 
 function initialiseUI() {
   const sendBtn = document.querySelector('.js-send-push');
   sendBtn.addEventListener('click', () => {
-    sendBtn.disabled = true;
+    sendBtn.disabled = false;
 
     sendPushMessage()
     .catch((err) => {
@@ -108,3 +106,4 @@ function initialiseUI() {
 window.addEventListener('load', () => {
   initialiseUI();
 });
+
