@@ -92,13 +92,30 @@ function initialiseUI() {
   });
 
   const previousDetails = getDetails();
-  if (previousDetails) {
-    const subscriptionTextArea = document.querySelector('#push-subscription');
-    const textToSendTextArea = document.querySelector('#push-data');
+  function read (){
+  var webpush = [];
+  var object="";
+  var i="";
+    
+    axios
+      .get("https://apibackpush.herokuapp.com/webpush/")
+      .then(response => {
+        console.log(JSON.stringify(response.data[0].variable)) })
+       
+      .catch(function(error) {
+        console.log(error);
+      });
+  
+  } 
+  
 
+   // const subscriptionTextArea = document.querySelector('#push-subscription');
+    console.log(read()) 
+    const textToSendTextArea = document.querySelector('#push-data');
+    
     subscriptionTextArea.value = previousDetails.subscription;
     textToSendTextArea.value = previousDetails.data;
-  }
+  
 
   sendBtn.disabled = false;
 }
