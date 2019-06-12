@@ -17,13 +17,15 @@ function saveDetails(details) {
     JSON.stringify(details));
 }
 
-function sendPushMessage() {
-  const subscriptionTextArea = document.querySelector('#push-subscription');
-  const textToSendTextArea = document.querySelector('#push-data');
-
-  const subscriptionString = subscriptionTextArea.value.trim();
-  const dataString = textToSendTextArea.value;
-
+function sendPushMessage(row) {
+  
+  const textToSendTextArea = document.querySelector('#push-data');  
+  var i;
+  
+    console.log(row);
+    const subscriptionString = row;
+    const dataString = textToSendTextArea.value;
+ 
   saveDetails({
     subscription: subscriptionString,
     data: dataString
@@ -74,51 +76,39 @@ function sendPushMessage() {
     }
   });
   
+  
 }
 
 function initialiseUI() {
   const sendBtn = document.querySelector('.js-send-push');
   sendBtn.addEventListener('click', () => {
-    sendBtn.disabled = false;
-
-    sendPushMessage()
+  sendBtn.disabled = true;  
+  read().then(function(result) {
+  var key;
+  var obj
+  function tabRow() {
+  return result.map(function(object, key) {
+     return  obj={object};
+    });
+   }
+ for(var i=0;i<tabRow().length;i++){              
+    sendPushMessage(JSON.stringify(tabRow()[i].object.variable))
     .catch((err) => {
       console.error(err);
       window.alert(err.message);
     })
     .then(() => {
       sendBtn.disabled = false;
-    });
+     });
+    };
   });
-
-  const previousDetails = getDetails();
-  function read (){
-  var webpush = [];
-  var object="";
-  var i="";
-    
-    axios
-      .get("https://apibackpush.herokuapp.com/webpush/")
-      .then(response => {
-        console.log(JSON.stringify(response.data[0].variable)) })
-       
-      .catch(function(error) {
-        console.log(error);
-      });
-  
-  } 
-  
-
-   // const subscriptionTextArea = document.querySelector('#push-subscription');
-    console.log(read()) 
-    const textToSendTextArea = document.querySelector('#push-data');
-    
-    subscriptionTextArea.value = previousDetails.subscription;
-    textToSendTextArea.value = previousDetails.data;
-  
-
-  sendBtn.disabled = false;
+ });  
 }
+
+async function read (){
+       let response = await axios.get("https://apibackpush.herokuapp.com/webpush/");
+       return response.data;
+    }
 
 window.addEventListener('load', () => {
   initialiseUI();
