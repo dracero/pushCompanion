@@ -82,8 +82,8 @@ function sendPushMessage(row) {
 function initialiseUI() {
   const sendBtn = document.querySelector('.js-send-push');
   sendBtn.addEventListener('click', () => {
-  sendBtn.disabled = true;  
   read().then(function(result) {
+  sendBtn.disabled = true;  
   var key;
   var obj
   function tabRow() {
