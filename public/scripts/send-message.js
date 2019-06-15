@@ -19,7 +19,8 @@ function saveDetails(details) {
 
 function sendPushMessage(row) {
   
-  const textToSendTextArea = document.querySelector('#push-data');  
+  const textToSendTextArea = document.querySelector('#push-data'); 
+  const urlToSend = document.querySelector('#url-data'); 
   var i;
   
     console.log(row);
@@ -52,15 +53,14 @@ function sendPushMessage(row) {
       'in Chrome?')
     );
   }
-
-  return fetch('/api/send-push-msg', {
+ return fetch('/api/send-push-msg', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       subscription: subscriptionObject,
-      data: dataString,
+      data: dataString+"$"+ urlToSend.value,
       applicationKeys: {
         public: 'BCGdB1k1Bnt3YIV_mYuAfpWlDFjcwg6va0fj_1VcP8SKLR4B_WYi6jGEC1xzYhiUCbUDEnWyj65Z4HEIV34mfiw',
         private: 'CV8vfQItcA722oiFpBOuuTwyTGpvjTmS4Sel8dq416I'
@@ -82,8 +82,8 @@ function sendPushMessage(row) {
 function initialiseUI() {
   const sendBtn = document.querySelector('.js-send-push');
   sendBtn.addEventListener('click', () => {
+  sendBtn.disabled = true;
   read().then(function(result) {
-  sendBtn.disabled = true;  
   var key;
   var obj
   function tabRow() {
@@ -98,11 +98,12 @@ function initialiseUI() {
       window.alert(err.message);
     })
     .then(() => {
-      sendBtn.disabled = false;
+      sendBtn.disabled = true;
      });
     };
   });
- });  
+ });
+  
 }
 
 async function read (){
