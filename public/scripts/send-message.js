@@ -1,4 +1,4 @@
-/* eslint-env browser,  es6*/
+/* eslint-env  es6*/
 
 function getDetails() {
   const details = window.localStorage.getItem('last-known-details');
