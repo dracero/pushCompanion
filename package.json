@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "body-parser": "^1.15.2",
-    "express": "^4.15.4",
+    "express": "^4.17.3",
     "web-push": "^3.2.1"
   },
   "engines": {
